@@ -1,4 +1,6 @@
-import "../node_modules/bootstrap/dist/css/bootstrap-grid.min.css";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "./index.scss";
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';

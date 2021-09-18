@@ -10,8 +10,9 @@ function App() {
     <Suspense fallback={<div>...loading</div>}>
       <Router>
         <Switch>
-          {pages.map((page) => (
+          {pages.map((page, index) => (
             <Route
+              key={index}
               path={page.path}
               exact={page.exact}
               component={page.module}
