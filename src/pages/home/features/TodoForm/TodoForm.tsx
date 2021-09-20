@@ -7,9 +7,9 @@ import {
   TextField,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import "./TaskForm.scss";
+import "./TodoForm.scss";
 
-const TaskForm = () => {
+const TodoForm = () => {
   return (
       <Box component="form" onSubmit={() => {}} noValidate sx={{ mt: 5 }}>
         <Card variant="outlined">
@@ -57,4 +57,4 @@ const TaskForm = () => {
   );
 };
 
-export { TaskForm };
+export { TodoForm };

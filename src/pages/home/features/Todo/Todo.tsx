@@ -1,32 +1,22 @@
+import { ListItem, ListItemButton, ListItemText } from "@mui/material";
+import { Box } from "@mui/system";
 import * as React from "react";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Typography,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
-interface TaskProps {
-    title: string;
-    description: string;
+interface TodoProps {
+  id?: string;
+  text: string;
 }
 
-const Todo: React.FC<TaskProps> = (props) => {
+const Todo: React.FC<TodoProps> = (props) => {
   return (
-    <Accordion variant="outlined">
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1a-content"
-        id="panel1a-header">
-        <Typography>{props.title}</Typography>
-      </AccordionSummary>
-      <AccordionDetails>
-        <Typography>
-        {props.description}
-        </Typography>
-      </AccordionDetails>
-    </Accordion>
+    <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+      <nav>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemText primary={props.text} />
+          </ListItemButton>
+        </ListItem>
+      </nav>
+    </Box>
   );
 };
 

@@ -1,36 +1,36 @@
 import * as React from "react";
+import { useQuery } from "@apollo/client";
 import { Box } from "@mui/system";
-import { useQuery } from "react-query";
+import { TODO_LIST_QUERY } from "../../../../services";
 import { Todo } from "..";
-import { client, TASK_LIST_QUERY } from "../../../../services";
-import {  gql } from "graphql-request";
+import { Card, Divider, List } from "@mui/material";
+import { TodoModel } from "../../../../models";
 
-function useTasks() {
-  return useQuery("todos", async () => {
-    const {
-      posts: { data },
-    } = await client.request(
-      gql`
-        ${TASK_LIST_QUERY}
-      `
-    );
-    return data;
-  });
-}
+const TodoList = (): React.ReactElement => {
+  const todos = useQuery(TODO_LIST_QUERY);
 
-const TaskList = () => {
-  const todos = useTasks();
   return (
     <Box sx={{ mt: 2 }}>
-      {todos.isLoading || todos.isFetching || !todos.data ? (
+      {todos.loading ? (
         <h1>Cargando datos...</h1>
       ) : (
-        todos.data.todosList.items.map((item: any, index: number) => (
-          <Todo key={index} title={item.title} description={item.description} />
-        ))
+        <Card variant="outlined">
+          <List>
+            {todos.data.todosList.items.map(
+              (todo: TodoModel, index: number) => (
+                <React.Fragment key={index}>
+                  <Todo text={todo.text} />
+                  {index < todos.data.todosList.items.length - 1 ? (
+                    <Divider />
+                  ) : null}
+                </React.Fragment>
+              )
+            )}
+          </List>
+        </Card>
       )}
     </Box>
   );
 };
 
-export { TaskList };
+export { TodoList };

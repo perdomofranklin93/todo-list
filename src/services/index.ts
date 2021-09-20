@@ -1,1 +1,1 @@
-export * from './graphQL';
+export * from './graphql';
