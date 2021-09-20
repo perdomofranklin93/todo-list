@@ -31,6 +31,7 @@ export default function Login(): React.ReactElement {
             margin="normal"
             required
             fullWidth
+            size="small"
             id="email"
             label="Correo"
             name="email"
@@ -38,6 +39,7 @@ export default function Login(): React.ReactElement {
             autoFocus
           />
           <TextField
+            size="small"
             margin="normal"
             required
             fullWidth
