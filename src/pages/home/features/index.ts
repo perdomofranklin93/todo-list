@@ -1,3 +1,3 @@
-export * from "./Task";
-export * from "./TaskForm";
-export * from './TaskList'; 
+export * from "./Todo";
+export * from "./TodoForm";
+export * from './TodoList'; 

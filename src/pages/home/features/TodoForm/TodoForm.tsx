@@ -27,9 +27,9 @@ const TaskForm = () => {
                 <TextField
                   size="small"
                   fullWidth
-                  id="task"
+                  id="todo"
                   label="Crear una nueva tarea"
-                  name="task"
+                  name="todo"
                   autoComplete="email"
                 />
               </Grid>

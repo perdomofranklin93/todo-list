@@ -9,7 +9,7 @@ const Header = (): React.ReactElement => {
         <Container fixed>
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Task List
+              Todo List
             </Typography>
             <Button color="inherit">CERRA SESION</Button>
           </Toolbar>

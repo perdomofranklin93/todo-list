@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Box } from "@mui/system";
 import { useQuery } from "react-query";
-import { Task } from "..";
+import { Todo } from "..";
 import { client, TASK_LIST_QUERY } from "../../../../services";
 import {  gql } from "graphql-request";
 
 function useTasks() {
-  return useQuery("tasks", async () => {
+  return useQuery("todos", async () => {
     const {
       posts: { data },
     } = await client.request(
@@ -19,14 +19,14 @@ function useTasks() {
 }
 
 const TaskList = () => {
-  const tasks = useTasks();
+  const todos = useTasks();
   return (
     <Box sx={{ mt: 2 }}>
-      {tasks.isLoading || tasks.isFetching || !tasks.data ? (
+      {todos.isLoading || todos.isFetching || !todos.data ? (
         <h1>Cargando datos...</h1>
       ) : (
-        tasks.data.tasksList.items.map((item: any, index: number) => (
-          <Task key={index} title={item.title} description={item.description} />
+        todos.data.todosList.items.map((item: any, index: number) => (
+          <Todo key={index} title={item.title} description={item.description} />
         ))
       )}
     </Box>

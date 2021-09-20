@@ -3,7 +3,7 @@ import { Header } from "../../components";
 import { TaskForm } from "./features";
 import { Container } from "@mui/material";
 import "./Home.scss";
-import { TaskList } from "./features/TaskList/TaskList";
+import { TaskList } from "./features/TodoList/TodoList";
 
 export default function Home(): React.ReactElement {
   return (

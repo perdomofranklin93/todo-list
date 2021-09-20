@@ -1,6 +1,6 @@
 export const TASK_LIST_QUERY = `
 query {
-  tasksList {
+  todosList {
     items {
       id
       title

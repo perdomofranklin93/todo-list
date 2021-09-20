@@ -12,7 +12,7 @@ interface TaskProps {
     description: string;
 }
 
-const Task: React.FC<TaskProps> = (props) => {
+const Todo: React.FC<TaskProps> = (props) => {
   return (
     <Accordion variant="outlined">
       <AccordionSummary
@@ -30,4 +30,4 @@ const Task: React.FC<TaskProps> = (props) => {
   );
 };
 
-export { Task };
+export { Todo };
