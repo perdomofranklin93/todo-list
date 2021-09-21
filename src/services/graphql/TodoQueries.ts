@@ -1,6 +1,6 @@
-import * as React from "react";
-import { gql } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { client } from ".";
+import { TodoModel } from "../../models";
 
 export const TODO_LIST_QUERY = gql`
   query TodoList {
@@ -14,12 +14,22 @@ export const TODO_LIST_QUERY = gql`
   }
 `;
 
+export const CREATE_TODO_MUTATION = gql`
+  mutation TodoCreate($data: TodoCreateInput!) {
+    todoCreate(data: $data) {
+      id
+      text
+      completed
+    }
+  }
+`;
+
 export const useTodoQueries = () => {
+  const [todoCreate] = useMutation(CREATE_TODO_MUTATION);
+
   const getTodos = async () => {
     const response = await client.query({
-      query: gql`
-        ${TODO_LIST_QUERY}
-      `,
+      query: TODO_LIST_QUERY,
     });
 
     if (response.data) {
@@ -31,7 +41,19 @@ export const useTodoQueries = () => {
     return response.data;
   };
 
+  const createTodo = async (data: TodoModel): Promise<TodoModel | null> => {
+    const response = await todoCreate({
+      variables: { data: { text: data.text } },
+    });
+    if (response) {
+      return response.data.todoCreate as TodoModel;
+    } else {
+      return null;
+    }
+  };
+
   return {
     getTodos,
+    createTodo,
   };
 };
