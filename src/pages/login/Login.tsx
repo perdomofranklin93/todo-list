@@ -15,11 +15,8 @@ export default function Login(): React.ReactElement {
 
   React.useEffect(() => { 
     const init = async() => {
-      authClient.authorize(); 
-      console.log(authClient.checkIsAuthorized());
-      console.log(authClient.getState()); 
+      if (!authClient.checkIsAuthorized()) authClient.authorize();
     }
-
     init();
   }, []); 
 
