@@ -31,6 +31,7 @@ const TodoList = (): React.ReactElement => {
     todos.refetch().then((response) => {
       setData([...response.data]);
     });
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -45,7 +46,22 @@ const TodoList = (): React.ReactElement => {
               {data && data.length
                 ? data.map((todo: TodoModel, index: number) => (
                     <React.Fragment key={index}>
-                      <Todo text={todo.text} />
+                      <Todo
+                        id={todo.id}
+                        text={todo.text}
+                        onDelete={() => {
+                          setData((values) => {
+                            return values.filter((item, i) =>
+                              i !== index ? true : false
+                            );
+                          });
+                        }}
+                        onUpdate={(todo) => {
+                          const values = JSON.parse(JSON.stringify(data));
+                          values[index].text = todo.text as string;
+                          setData([...values]);
+                        }}
+                      />
                       {index < data.length - 1 ? <Divider /> : null}
                     </React.Fragment>
                   ))
