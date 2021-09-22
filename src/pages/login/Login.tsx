@@ -8,9 +8,21 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import * as React from "react";
+import { authClient } from "../../services/aws/AuthClient";
 import "./Login.scss";
 
 export default function Login(): React.ReactElement {
+
+  React.useEffect(() => { 
+    const init = async() => {
+      authClient.authorize(); 
+      console.log(authClient.checkIsAuthorized());
+      console.log(authClient.getState()); 
+    }
+
+    init();
+  }, []); 
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -50,6 +62,7 @@ export default function Login(): React.ReactElement {
             autoComplete="current-password"
           />
           <Button
+            disableElevation
             type="submit"
             fullWidth
             variant="contained"

@@ -104,12 +104,12 @@ const TodoForm: React.FC<TodoFormProps> = (props) => {
               }}
             >
               <Button
+                disableElevation
                 disabled={!formState.isDirty || !formState.isValid}
                 fullWidth
                 type={"submit"}
                 size={"medium"}
-                variant={"contained"}
-              >
+                variant={"contained"}>
                 AGREGAR
               </Button>
             </Grid>

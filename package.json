@@ -3,6 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "dependencies": {
+    "@8base/auth": "^2.5.1",
     "@apollo/client": "^3.4.12",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
