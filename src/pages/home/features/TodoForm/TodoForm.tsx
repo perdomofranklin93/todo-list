@@ -38,7 +38,7 @@ const TodoForm: React.FC<TodoFormProps> = (props) => {
       e.target.reset();
       // Show message success
       successMessageRef.current.open();
-      // Emit
+      // Emit new data
       props.onNewTodo(response);
     } else {
       // Show message error

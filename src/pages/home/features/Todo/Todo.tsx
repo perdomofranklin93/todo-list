@@ -10,8 +10,8 @@ import {
 } from "@mui/material";
 import { useTodoQueries } from "../../../../services";
 import { Box } from "@mui/system";
-import * as React from "react";
 import { TodoModel } from "../../../../models";
+import * as React from "react";
 interface TodoProps {
   id?: string;
   text: string;
@@ -22,7 +22,7 @@ interface TodoProps {
 type Modality = "input" | "view";
 type Crud = "_delete" | "edition" | "normal";
 
-const Todo: React.FC<TodoProps> = (props) => {
+const Todo: React.FC<TodoProps> = (props) :React.ReactElement => {
   const { deleteTodo, updateTodo } = useTodoQueries();
 
   const [text, setText] = React.useState<string>(props.text);
@@ -33,12 +33,12 @@ const Todo: React.FC<TodoProps> = (props) => {
     setCrud("_delete");
   };
 
-  const editionMode = (): void => {
+  const editionMode = () => {
     setCrud("edition");
     setModality("input");
   };
 
-  const clear = (): void => {
+  const clear = () => {
     setModality("view");
     setCrud("normal");
   };

@@ -17,22 +17,44 @@ const TodoList = (): React.ReactElement => {
     enabled: false,
   });
 
+  // init
+  React.useEffect(() => {
+    todos.refetch().then((response) => {
+      setData([...(response.data as TodoModel[])]);
+    });
+    // eslint-disable-next-line
+  }, []);
+
+
   /**
    * Add new todo element to the list todo
    * @param {TodoModel} todo
    */
-  const _handleNewTodo = (todo: TodoModel) => {
+   const _handleNewTodo = (todo: TodoModel) => {
     const prepare: Array<TodoModel> = JSON.parse(JSON.stringify(data));
     prepare.unshift(todo);
     setData([...prepare]);
   };
 
-  React.useEffect(() => {
-    todos.refetch().then((response) => {
-      setData([...response.data]);
-    });
-    // eslint-disable-next-line
-  }, []);
+  // Update the data state after update
+  const handleUpdateState = React.useCallback(
+    (index: number) => {
+      setData((values) => {
+        return values.filter((item, i) => (i !== index ? true : false));
+      });
+    },
+    [data, setData]
+  );
+
+  // Update the data state after delete
+  const handleDeleteState = React.useCallback(
+    (todo: Partial<TodoModel>, index: number) => {
+      const values = JSON.parse(JSON.stringify(data));
+      values[index].text = todo.text as string;
+      setData([...values]);
+    },
+    [data, setData]
+  );
 
   return (
     <>
@@ -50,16 +72,10 @@ const TodoList = (): React.ReactElement => {
                         id={todo.id}
                         text={todo.text}
                         onDelete={() => {
-                          setData((values) => {
-                            return values.filter((item, i) =>
-                              i !== index ? true : false
-                            );
-                          });
+                          handleUpdateState(index);
                         }}
                         onUpdate={(todo) => {
-                          const values = JSON.parse(JSON.stringify(data));
-                          values[index].text = todo.text as string;
-                          setData([...values]);
+                          handleDeleteState(todo, index);
                         }}
                       />
                       {index < data.length - 1 ? <Divider /> : null}

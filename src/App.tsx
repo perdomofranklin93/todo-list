@@ -6,9 +6,9 @@ import { RootModules } from "./pages/routers";
 
 const RenderModules = () => {
   const modules = RootModules;
-
+  
   return (
-    <Suspense fallback={<div>...loading</div>}>
+    <Suspense fallback={<div>loading...</div>}>
       <Router>
         <Switch>
           {modules.map((page, index) => (
@@ -28,7 +28,6 @@ const RenderModules = () => {
 const queryClient = new QueryClient();
 
 function App() {
-
   return (
     <QueryClientProvider client={queryClient}>
       <RenderModules />
