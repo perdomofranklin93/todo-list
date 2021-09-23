@@ -8,7 +8,7 @@ export default function Home(): React.ReactElement {
   return (
     <div>
       <Header />
-      <Container fixed>
+      <Container maxWidth="md">
         <TodoList />
       </Container>
     </div>

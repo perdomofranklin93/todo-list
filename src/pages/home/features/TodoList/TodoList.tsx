@@ -5,6 +5,7 @@ import { useTodoQueries } from "../../../../services";
 import { Todo, TodoForm } from "..";
 import { Card, Divider, List } from "@mui/material";
 import { TodoModel } from "../../../../models";
+import { TodoSkeleton } from "../Todo/TodoSkeleton";
 
 const TodoList = (): React.ReactElement => {
   // Todo Queries hook - GraphQL
@@ -25,32 +26,31 @@ const TodoList = (): React.ReactElement => {
     // eslint-disable-next-line
   }, []);
 
-
   /**
    * Add new todo element to the list todo
    * @param {TodoModel} todo
    */
-   const _handleNewTodo = (todo: TodoModel) => {
+  const _handleNewTodo = (todo: TodoModel) => {
     const prepare: Array<TodoModel> = JSON.parse(JSON.stringify(data));
     prepare.unshift(todo);
     setData([...prepare]);
   };
 
   // Update the data state after update
-  const handleUpdateState = React.useCallback(
+  const handleDeleteState = React.useCallback(
     (index: number) => {
       setData((values) => {
         return values.filter((item, i) => (i !== index ? true : false));
       });
     },
-    [data, setData]
+    [setData]
   );
 
   // Update the data state after delete
-  const handleDeleteState = React.useCallback(
+  const handleUpdateState = React.useCallback(
     (todo: Partial<TodoModel>, index: number) => {
       const values = JSON.parse(JSON.stringify(data));
-      values[index].text = todo.text as string;
+      values[index] = { ...values[index], ...todo };
       setData([...values]);
     },
     [data, setData]
@@ -61,7 +61,7 @@ const TodoList = (): React.ReactElement => {
       <TodoForm onNewTodo={_handleNewTodo} />
       <Box sx={{ mt: 2 }}>
         {todos.isLoading || todos.isFetching ? (
-          <h1>Cargando datos...</h1>
+          <TodoSkeleton />
         ) : (
           <Card variant="outlined">
             <List>
@@ -69,13 +69,15 @@ const TodoList = (): React.ReactElement => {
                 ? data.map((todo: TodoModel, index: number) => (
                     <React.Fragment key={index}>
                       <Todo
-                        id={todo.id}
-                        text={todo.text}
+                        data={todo}
+                        onToggle={(todo) => {
+                          handleUpdateState(todo, index);
+                        }}
                         onDelete={() => {
-                          handleUpdateState(index);
+                          handleDeleteState(index);
                         }}
                         onUpdate={(todo) => {
-                          handleDeleteState(todo, index);
+                          handleUpdateState(todo, index);
                         }}
                       />
                       {index < data.length - 1 ? <Divider /> : null}

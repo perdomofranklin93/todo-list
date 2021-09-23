@@ -41,11 +41,21 @@ const UPDATE_TEXT_TODO_MUTATION = gql`
   }
 `;
 
+const TOGGLE_TODO_MUTATION = gql`
+  mutation TodoUpdate($id: ID!, $completed: Boolean!) {
+    todoUpdate(filter: { id: $id }, data: { completed: $completed }) {
+      id
+      completed
+    }
+  }
+`;
+
 export const useTodoQueries = () => {
   /* CRUD mutations */
   const [create] = useMutation(CREATE_TODO_MUTATION);
   const [_delete] = useMutation(DELETE_TODO_MUTATION);
   const [update] = useMutation(UPDATE_TEXT_TODO_MUTATION);
+  const [toggle] = useMutation(TOGGLE_TODO_MUTATION);
 
   /**
    * Get todos list
@@ -115,10 +125,19 @@ export const useTodoQueries = () => {
     else return false;
   };
 
+  const toggleTodo = async (todo: TodoModel): Promise<any | null> => {
+    const response = await toggle({
+      variables: { id: todo.id, completed: todo.completed },
+    });
+    if (response) return response.data.todoUpdate;
+    else return null;
+  };
+
   return {
     getTodos,
     createTodo,
     deleteTodo,
     updateTodo,
+    toggleTodo
   };
 };
