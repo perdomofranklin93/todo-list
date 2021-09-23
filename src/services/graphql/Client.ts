@@ -2,9 +2,10 @@ import {
   ApolloClient,
   InMemoryCache,
   NormalizedCacheObject,
-} from '@apollo/client'
+} from "@apollo/client";
 import { ENVIRONMENT } from "../../environment";
 
+// instantance apollo client
 export const client: ApolloClient<NormalizedCacheObject> =
   new ApolloClient<NormalizedCacheObject>({
     headers: {

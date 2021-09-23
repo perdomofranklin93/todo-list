@@ -7,12 +7,12 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import * as React from "react";
 import { authClient } from "../../services/aws/AuthClient";
-import "./Login.scss";
+import * as React from "react";
 
 export default function Login(): React.ReactElement {
 
+  // Init aws cognito login
   React.useEffect(() => { 
     const init = async() => {
       if (!authClient.checkIsAuthorized()) authClient.authorize();

@@ -42,47 +42,67 @@ const UPDATE_TEXT_TODO_MUTATION = gql`
 `;
 
 export const useTodoQueries = () => {
+  /* CRUD mutations */
   const [create] = useMutation(CREATE_TODO_MUTATION);
   const [_delete] = useMutation(DELETE_TODO_MUTATION);
   const [update] = useMutation(UPDATE_TEXT_TODO_MUTATION);
 
-  const getTodos = async () => {
+  /**
+   * Get todos list
+   * @returns {Promise<TodoModel[]>}
+   */
+  const getTodos = async (): Promise<TodoModel[]> => {
+    // make request
     const response = await client.query({
       query: TODO_LIST_QUERY,
     });
 
-    if (response.data) {
-      response.data = response.data.todosList.items;
-    } else {
-      response.data = [];
-    }
-
-    return response.data;
+    // map and return response
+    if (response.data) return response.data.todosList.items;
+    else return [];
   };
 
+  /**
+   * Create a todo
+   * @param  {TodoModel} data
+   * @returns {Promise<TodoModel | null>}
+   */
   const createTodo = async (data: TodoModel): Promise<TodoModel | null> => {
+    // make request
     const response = await create({
       variables: { data: { text: data.text } },
     });
-    if (response) {
-      return response.data.todoCreate as TodoModel;
-    } else {
-      return null;
-    }
+
+    // map and return response
+    if (response) return response.data.todoCreate as TodoModel;
+    else return null;
   };
 
-  const deleteTodo = async (id: string): Promise<any> => {
+  /**
+   * Delete a todo
+   * @param {string} id
+   * @returns {Promise<boolean>}
+   */
+  const deleteTodo = async (id: string): Promise<boolean> => {
+    // make request
     const response = await _delete({
       variables: {
         id: id,
       },
     });
 
+    // map and return response
     if (response) return true;
     else return false;
   };
 
-  const updateTodo = async (todo: TodoModel): Promise<any> => {
+  /**
+   * Update todo text
+   * @param {TodoModel} todo
+   * @returns
+   */
+  const updateTodo = async (todo: TodoModel): Promise<TodoModel | boolean> => {
+    // make request
     const response = await update({
       variables: {
         id: todo.id,
@@ -90,7 +110,8 @@ export const useTodoQueries = () => {
       },
     });
 
-    if (response) return response.data.todoUpdate;
+    // map and return response
+    if (response) return response.data.todoUpdate as TodoModel;
     else return false;
   };
 
