@@ -1,16 +1,17 @@
 import React, { Suspense } from "react";
 import "./App.scss";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { PagesModules } from "./pages/routers";
+import { RootModules } from "./pages/routers";
 
-function App() {
-  const pages = PagesModules;
-
+const RenderModules = () => {
+  const modules = RootModules;
+  
   return (
-    <Suspense fallback={<div>...loading</div>}>
+    <Suspense fallback={<div>loading...</div>}>
       <Router>
         <Switch>
-          {pages.map((page, index) => (
+          {modules.map((page, index) => (
             <Route
               key={index}
               path={page.path}
@@ -21,6 +22,16 @@ function App() {
         </Switch>
       </Router>
     </Suspense>
+  );
+};
+
+const queryClient = new QueryClient();
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RenderModules />
+    </QueryClientProvider>
   );
 }
 

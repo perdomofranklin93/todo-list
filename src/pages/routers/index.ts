@@ -1,1 +1,1 @@
-export * from './PagesModule'; 
+export * from './RootModules'; 

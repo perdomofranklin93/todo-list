@@ -7,10 +7,19 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import { authClient } from "../../services/aws/AuthClient";
 import * as React from "react";
-import "./Login.scss";
 
 export default function Login(): React.ReactElement {
+
+  // Init aws cognito login
+  React.useEffect(() => { 
+    const init = async() => {
+      if (!authClient.checkIsAuthorized()) authClient.authorize();
+    }
+    init();
+  }, []); 
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -31,6 +40,7 @@ export default function Login(): React.ReactElement {
             margin="normal"
             required
             fullWidth
+            size="small"
             id="email"
             label="Correo"
             name="email"
@@ -38,6 +48,7 @@ export default function Login(): React.ReactElement {
             autoFocus
           />
           <TextField
+            size="small"
             margin="normal"
             required
             fullWidth
@@ -48,6 +59,7 @@ export default function Login(): React.ReactElement {
             autoComplete="current-password"
           />
           <Button
+            disableElevation
             type="submit"
             fullWidth
             variant="contained"

@@ -1,8 +1,10 @@
 {
-  "name": "tasklist",
-  "version": "0.1.0",
+  "name": "todo-list",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
+    "@8base/auth": "^2.5.1",
+    "@apollo/client": "^3.4.12",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@mui/icons-material": "^5.0.0",
@@ -15,13 +17,23 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "apollo-client": "^2.6.10",
+    "graphql": "^15.5.3",
+    "graphql-request": "^3.5.0",
+    "graphql-tag": "^2.12.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^7.15.4",
+    "react-query": "^3.24.2",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
+    "stop-runaway-react-effects": "^2.0.0",
     "styled-components": "^5.3.1",
     "typescript": "^4.1.2",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "yup": "^0.32.9",
+    "8base-cli-types": "^0.3.3",
+    "path": "^0.12.7"
   },
   "scripts": {
     "start": "react-scripts start",
