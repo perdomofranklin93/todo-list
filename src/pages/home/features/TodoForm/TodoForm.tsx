@@ -82,6 +82,7 @@ const TodoForm: React.FC<TodoFormProps> = (props) => {
                 }}
                 render={({ field: { onChange, onBlur } }) => (
                   <TextField
+                    id="create-input"
                     onChange={onChange}
                     onBlur={onBlur}
                     size="small"
@@ -104,6 +105,7 @@ const TodoForm: React.FC<TodoFormProps> = (props) => {
               }}
             >
               <Button
+                id="add-button"
                 disableElevation
                 disabled={!formState.isDirty || !formState.isValid}
                 fullWidth

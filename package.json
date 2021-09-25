@@ -38,7 +38,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "e2e": "npx cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -66,6 +67,7 @@
     "@types/react-router-dom": "^5.1.9",
     "cypress": "^8.4.1",
     "envify": "^4.1.0",
+    "faker": "^5.5.3",
     "node-sass": "^6.0.1",
     "sass": "^1.41.1",
     "terser": "^5.8.0",
