@@ -10,12 +10,13 @@ import {
   ListItemIcon,
   ListItemText,
   TextField,
+  Tooltip,
 } from "@mui/material";
 import { useTodoQueries } from "../../../../services";
 import { Box } from "@mui/system";
 import { TodoModel } from "../../../../models";
-
 import * as React from "react";
+import { useCRUD } from "../../../../hooks/CRUD";
 interface TodoProps {
   data: TodoModel;
   onDelete?: () => void;
@@ -23,29 +24,11 @@ interface TodoProps {
   onToggle?: (todo: Partial<TodoModel>) => void;
 }
 
-type Modality = "input" | "view";
-type Crud = "_delete" | "edition" | "normal";
-
 const Todo: React.FC<TodoProps> = (props): React.ReactElement => {
-  const { deleteTodo, updateTodo, toggleTodo } = useTodoQueries();
-
   const [text, setText] = React.useState<string>(props.data.text);
-  const [modality, setModality] = React.useState<Modality>("view");
-  const [crud, setCrud] = React.useState<Crud>("normal");
 
-  const deleteMode = () => {
-    setCrud("_delete");
-  };
-
-  const editionMode = () => {
-    setCrud("edition");
-    setModality("input");
-  };
-
-  const clear = () => {
-    setModality("view");
-    setCrud("normal");
-  };
+  const { deleteTodo, updateTodo, toggleTodo } = useTodoQueries();
+  const { crud, modality, normalMode, editionMode, deleteMode } = useCRUD();
 
   const handleUpdate = async () => {
     const response = await updateTodo({
@@ -55,7 +38,7 @@ const Todo: React.FC<TodoProps> = (props): React.ReactElement => {
     });
 
     if (response) {
-      clear();
+      normalMode();
       if (props.onUpdate) props.onUpdate({ text: text });
     }
   };
@@ -64,7 +47,7 @@ const Todo: React.FC<TodoProps> = (props): React.ReactElement => {
     const response = await deleteTodo(props.data.id as string);
 
     if (response) {
-      clear();
+      normalMode();
       if (props.onDelete) props.onDelete();
     }
   };
@@ -77,10 +60,6 @@ const Todo: React.FC<TodoProps> = (props): React.ReactElement => {
 
     if (props.onToggle) props.onToggle(response);
   };
-
-  React.useEffect(() => {
-    return clear;
-  }, []);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -96,7 +75,7 @@ const Todo: React.FC<TodoProps> = (props): React.ReactElement => {
                         case "_delete":
                           handleDelete();
                           break;
-                        case "edition":
+                        case "edit":
                           handleUpdate();
                           break;
                       }
@@ -107,7 +86,7 @@ const Todo: React.FC<TodoProps> = (props): React.ReactElement => {
                     <CheckIcon />
                   </IconButton>
                   <IconButton
-                    onClick={clear}
+                    onClick={normalMode}
                     color={"info"}
                     aria-label="confirm"
                   >
@@ -117,21 +96,24 @@ const Todo: React.FC<TodoProps> = (props): React.ReactElement => {
               ) : null}
               {crud === "normal" ? (
                 <React.Fragment>
-                  <IconButton
-                    onClick={editionMode}
-                    color={"default"}
-                    aria-label="delete"
-                  >
-                    <EditIcon />
-                  </IconButton>
-
-                  <IconButton
-                    onClick={deleteMode}
-                    color={"default"}
-                    aria-label="delete"
-                  >
-                    <DeleteIcon />
-                  </IconButton>
+                  <Tooltip title="Editar">
+                    <IconButton
+                      onClick={editionMode}
+                      color={"default"}
+                      aria-label="delete"
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Eliminar">
+                    <IconButton
+                      onClick={deleteMode}
+                      color={"default"}
+                      aria-label="delete"
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </Tooltip>
                 </React.Fragment>
               ) : null}
             </React.Fragment>
@@ -163,7 +145,7 @@ const Todo: React.FC<TodoProps> = (props): React.ReactElement => {
               primary={props.data.text}
             />
           ) : (
-            <Grid container item xs={11} direction="column">
+            <Grid container item xs={10} direction="column">
               <TextField
                 fullWidth
                 size="small"
