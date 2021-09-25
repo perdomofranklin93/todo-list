@@ -59,6 +59,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react-hooks": "^7.0.2",
     "@types/react-router-dom": "^5.1.9",
     "envify": "^4.1.0",
     "node-sass": "^6.0.1",

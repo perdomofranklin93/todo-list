@@ -1,16 +1,37 @@
 import React from "react";
-import TestRenderer, { act, create } from 'react-test-renderer';
-import { MockedProvider } from '@apollo/client/testing';
-import { render, screen } from "@testing-library/react";
-import { Todo } from "../pages/home/features";
+import { useCRUD } from "../hooks/CRUD";
+import { renderHook, act } from "@testing-library/react-hooks";
 
-describe("todo component", () => {
-  test("todo component render", () => { 
-    let component;
+describe("CRUD hook testing", () => {
+  test("should initial values is ok, modality = 'view' and crud = 'normal'", () => {
+    const { result } = renderHook(() => useCRUD());
+    expect(result.current.crud).toBe("normal");
+    expect(result.current.modality).toBe("view");
+  });
+
+  test("should values changes after trigger editionMode, modality = 'input' and crud = 'edit'", () => {
+    const { result } = renderHook(() => useCRUD());
     act(() => {
-      component = create(<Todo data={{id: "", text: "", completed: false}} />);
+      result.current.editionMode();
     });
+    expect(result.current.crud).toBe("edit");
+    expect(result.current.modality).toBe("input");
+  });
 
-    console.log(component)
+  test("should values changes after trigger creationMode, modality = 'input' and crud = 'create'", () => {
+    const { result } = renderHook(() => useCRUD());
+    act(() => {
+      result.current.creationMode();
+    });
+    expect(result.current.crud).toBe("create");
+    expect(result.current.modality).toBe("input");
+  });
+
+  test("should crud value delete, after trigger deleteMode", () => {
+    const { result } = renderHook(() => useCRUD());
+    act(() => {
+      result.current.deleteMode();
+    });
+    expect(result.current.crud).toBe("_delete");
   });
 });
