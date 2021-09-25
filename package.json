@@ -37,7 +37,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --verbose",
+    "test": "react-scripts test a --verbose",
     "eject": "react-scripts eject",
     "e2e": "npx cypress open",
     "storybook": "start-storybook -p 6006 -s public",
