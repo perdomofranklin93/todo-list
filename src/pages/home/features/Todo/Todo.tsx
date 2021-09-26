@@ -3,6 +3,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import {
+  Card,
   Checkbox,
   Grid,
   IconButton,
@@ -62,113 +63,115 @@ const Todo: React.FC<TodoProps> = (props): React.ReactElement => {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <nav>
-        <ListItem
-          secondaryAction={
-            <React.Fragment>
-              {crud !== "normal" ? (
-                <React.Fragment>
-                  <IconButton
-                    onClick={() => {
-                      switch (crud) {
-                        case "_delete":
-                          handleDelete();
-                          break;
-                        case "edit":
-                          handleUpdate();
-                          break;
-                      }
-                    }}
-                    color={"info"}
-                    aria-label="confirm"
-                  >
-                    <CheckIcon />
-                  </IconButton>
-                  <IconButton
-                    onClick={normalMode}
-                    color={"info"}
-                    aria-label="confirm"
-                  >
-                    <CloseIcon />
-                  </IconButton>
-                </React.Fragment>
-              ) : null}
-              {crud === "normal" ? (
-                <React.Fragment>
-                  <Tooltip title="Editar">
+    <Card variant="outlined" sx={{borderRadius: 0}}>
+      <Box sx={{ width: "100%" }}>
+        <nav>
+          <ListItem
+            secondaryAction={
+              <React.Fragment>
+                {crud !== "normal" ? (
+                  <React.Fragment>
                     <IconButton
-                      onClick={editionMode}
-                      color={"default"}
-                      aria-label="delete"
+                      onClick={() => {
+                        switch (crud) {
+                          case "_delete":
+                            handleDelete();
+                            break;
+                          case "edit":
+                            handleUpdate();
+                            break;
+                        }
+                      }}
+                      color={"info"}
+                      aria-label="confirm"
                     >
-                      <EditIcon />
+                      <CheckIcon />
                     </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Eliminar">
                     <IconButton
-                      onClick={deleteMode}
-                      color={"default"}
-                      aria-label="delete"
+                      onClick={normalMode}
+                      color={"info"}
+                      aria-label="confirm"
                     >
-                      <DeleteIcon />
+                      <CloseIcon />
                     </IconButton>
-                  </Tooltip>
-                </React.Fragment>
-              ) : null}
-            </React.Fragment>
-          }
-        >
-          <ListItemIcon
-            sx={{ width: "auto", minWidth: "auto", marginRight: 1 }}
+                  </React.Fragment>
+                ) : null}
+                {crud === "normal" ? (
+                  <React.Fragment>
+                    <Tooltip title="Editar">
+                      <IconButton
+                        onClick={editionMode}
+                        color={"default"}
+                        aria-label="delete"
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Eliminar">
+                      <IconButton
+                        onClick={deleteMode}
+                        color={"default"}
+                        aria-label="delete"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </React.Fragment>
+                ) : null}
+              </React.Fragment>
+            }
           >
-            <Checkbox
-              color={"success"}
-              edge="start"
-              size="medium"
-              checked={props.data.completed as boolean}
-              tabIndex={-1}
-              onChange={handleToggle}
-              disableRipple
-            />
-          </ListItemIcon>
-
-          {modality === "view" ? (
-            <ListItemText
-              style={{
-                cursor: "pointer",
-                textDecoration: props.data.completed
-                  ? "line-through"
-                  : "initial",
-              }}
-              onDoubleClick={editionMode}
-              primary={props.data.text}
-            />
-          ) : (
-            <Grid container item xs={10} direction="column">
-              <TextField
-                fullWidth
-                size="small"
-                id="text"
-                value={text}
-                onChange={(e) => {
-                  setText(e.target.value);
-                }}
-                label="Tarea"
-                name="text"
-                onKeyPress={(ev) => {
-                  if (ev.key === "Enter") {
-                    handleUpdate();
-                    ev.preventDefault();
-                  }
-                }}
-                autoFocus
+            <ListItemIcon
+              sx={{ width: "auto", minWidth: "auto", marginRight: 1 }}
+            >
+              <Checkbox
+                color={"success"}
+                edge="start"
+                size="medium"
+                checked={props.data.completed as boolean}
+                tabIndex={-1}
+                onChange={handleToggle}
+                disableRipple
               />
-            </Grid>
-          )}
-        </ListItem>
-      </nav>
-    </Box>
+            </ListItemIcon>
+
+            {modality === "view" ? (
+              <ListItemText
+                style={{
+                  cursor: "pointer",
+                  textDecoration: props.data.completed
+                    ? "line-through"
+                    : "initial",
+                }}
+                onDoubleClick={editionMode}
+                primary={props.data.text}
+              />
+            ) : (
+              <Grid container item xs={10} direction="column">
+                <TextField
+                  fullWidth
+                  size="small"
+                  id="text"
+                  value={text}
+                  onChange={(e) => {
+                    setText(e.target.value);
+                  }}
+                  label="Tarea"
+                  name="text"
+                  onKeyPress={(ev) => {
+                    if (ev.key === "Enter") {
+                      handleUpdate();
+                      ev.preventDefault();
+                    }
+                  }}
+                  autoFocus
+                />
+              </Grid>
+            )}
+          </ListItem>
+        </nav>
+      </Box>
+    </Card>
   );
 };
 

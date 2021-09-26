@@ -7,22 +7,22 @@ const useCRUD = () => {
   const [modality, setModality] = React.useState<Modality>("view");
   const [crud, setCrud] = React.useState<CRUD>("normal");
 
-  const deleteMode = React.useCallback(() => setCrud("_delete"), []);
+  const deleteMode = () => setCrud("_delete")
 
-  const editionMode = React.useCallback(() => {
+  const editionMode = () => {
     setCrud("edit");
     setModality("input");
-  }, []);
+  }
 
-  const normalMode = React.useCallback(() => {
+  const normalMode = () => {
     setModality("view");
     setCrud("normal");
-  }, []);
+  }
 
-  const creationMode = React.useCallback(() => {
+  const creationMode = () => {
     setCrud("create");
     setModality("input");
-  }, []);
+  }
 
   return {
     modality,

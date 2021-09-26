@@ -25,7 +25,7 @@ const RenderModules = () => {
   );
 };
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 function App() {
   return (
