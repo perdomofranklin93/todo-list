@@ -28,36 +28,73 @@ Launches End 2 End test with **Cypress**
 
 Open the documentation with **Storybook**
 
-## Main project structure
+## Project structure
+
+### Test
+
+Folder where all unit tests are located
+```
+src/__tests__
+```
 
 ### Components
+Generic components
+```
+src/
+└── components
+    ├── atoms
+    ├── molecules
+    │   ├── headers
+    │   └── snackbars
+    └── organisms
+```
+### Environment
 
-```bash
-components
-├── atoms
-├── molecules
-│   ├── headers
-│   └── snackbars
-└── organisms
+Project environment variables
+```
+src/environment
 ```
 
+### Hooks
+```
+src/hooks
+```
+
+### Models
+```
+src/models
+```
 ### Pages
 
-```bash
-pages
-├── home
-│   └── features
-│       ├── Todo
-│       ├── TodoForm
-│       └── TodoList
-├── login
-└── routers
-```
+- `Home` is the main page of the application.
+- `Login` for now unnecessary with the aws service.
+- `routes` lazy load modules and routes.
 
+```
+src
+└── pages
+   ├── home
+   │   └── features
+   │       ├── Todo
+   │       ├── TodoForm
+   │       └── TodoList
+   ├── login
+   └── routers
+```
+### Resolvers
+For now deprecated
 ### Services
 
-```bash
-services
-├── aws
-└── graphql
+8base services configuration
+
+```
+└── services
+    ├── aws
+    └── graphql
+```
+
+### Stories
+Component Documentation and stories
+```
+src/stories
 ```

@@ -7,7 +7,7 @@ import { TodoList } from "./features";
 export default function Home(): React.ReactElement {
   return (
     <div>
-      <Header />
+      <Header title={"Todo Web App"} />
       <Container maxWidth="md">
         <TodoList />
       </Container>

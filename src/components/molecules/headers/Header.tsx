@@ -1,8 +1,12 @@
+import * as React from "react";
 import { AppBar, Container, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import * as React from "react";
 
-const Header = (): React.ReactElement => {
+interface HeaderProps {
+  title: string;
+}
+
+const Header: React.FC<HeaderProps> = (props): React.ReactElement => {
   return (
     <Box sx={{ flexGrow: 1, marginTop: 5 }}>
       <Container maxWidth="md">
@@ -12,7 +16,7 @@ const Header = (): React.ReactElement => {
           sx={{ padding: 3 }}
           color={"primary"}>
           <Typography sx={{ marginTop: 5 }} variant="h2" component="div">
-            Todo Web App
+            {props.title}
           </Typography>
         </AppBar>
       </Container>

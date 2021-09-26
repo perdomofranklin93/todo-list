@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { Box } from "@mui/system";
 import { useTodoQueries } from "../../../../services";
 import { Todo, TodoForm } from "..";
-import { Card, Divider, List } from "@mui/material";
+import { List } from "@mui/material";
 import { TodoModel } from "../../../../models";
 import { TodoSkeleton } from "../Todo/TodoSkeleton";
 
@@ -63,29 +63,26 @@ const TodoList = (): React.ReactElement => {
         {todos.isLoading || todos.isFetching ? (
           <TodoSkeleton />
         ) : (
-          <Card variant="outlined">
-            <List>
-              {data && data.length
-                ? data.map((todo: TodoModel, index: number) => (
-                    <React.Fragment key={index}>
-                      <Todo
-                        data={todo}
-                        onToggle={(todo) => {
-                          handleUpdateState(todo, index);
-                        }}
-                        onDelete={() => {
-                          handleDeleteState(index);
-                        }}
-                        onUpdate={(todo) => {
-                          handleUpdateState(todo, index);
-                        }}
-                      />
-                      {index < data.length - 1 ? <Divider /> : null}
-                    </React.Fragment>
-                  ))
-                : null}
-            </List>
-          </Card>
+          <List>
+            {data && data.length
+              ? data.map((todo: TodoModel, index: number) => (
+                  <React.Fragment key={index}>
+                    <Todo
+                      data={todo}
+                      onToggle={(todo) => {
+                        handleUpdateState(todo, index);
+                      }}
+                      onDelete={() => {
+                        handleDeleteState(index);
+                      }}
+                      onUpdate={(todo) => {
+                        handleUpdateState(todo, index);
+                      }}
+                    />
+                  </React.Fragment>
+                ))
+              : null}
+          </List>
         )}
       </Box>
     </>
