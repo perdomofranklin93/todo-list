@@ -7,7 +7,7 @@ import { List } from "@mui/material";
 import { TodoModel } from "../../../../models";
 import { TodoSkeleton } from "../Todo/TodoSkeleton";
 
-const TodoList = (): React.ReactElement => {
+const TodoList: React.FC<any> = () => {
   // Todo Queries hook - GraphQL
   const todosQueries = useTodoQueries();
 

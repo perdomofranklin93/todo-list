@@ -12,6 +12,11 @@ export default {
       completed: false,
     },
   },
+  parameters: {
+    docs: {
+      page: null
+    },
+  },
 } as ComponentMeta<typeof Todo>;
 
 const Template: ComponentStory<typeof Todo> = (args) => (

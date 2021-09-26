@@ -4,14 +4,16 @@ import { TodoForm } from "../pages/home/features";
 import { client } from "../services";
 
 export default {
-  title: "Example/TodoForm",
+  title: "Example/Todo Form",
   component: TodoForm,
   parameters: {
-    docs: [],
+    docs: {
+      page: null,
+    },
   },
 } as ComponentMeta<typeof TodoForm>;
 
-export const Template: ComponentStory<typeof TodoForm> = (args) => (
+const Template: ComponentStory<typeof TodoForm> = (args) => (
   <ApolloProvider client={client}>
     <TodoForm {...args} />
   </ApolloProvider>
