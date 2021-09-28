@@ -44,7 +44,8 @@
     "eject": "react-scripts eject",
     "e2e": "npx cypress open",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "dev": "docker-compose -f docker-compose.dev.yml up"
   },
   "eslintConfig": {
     "extends": [
