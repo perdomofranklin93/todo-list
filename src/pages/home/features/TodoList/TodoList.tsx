@@ -21,7 +21,7 @@ const TodoList: React.FC<any> = () => {
   // init
   React.useEffect(() => {
     todos.refetch().then((response) => {
-      setData([...(response.data as TodoModel[])]);
+      setData([...(response?.data as TodoModel[])]);
     });
     // eslint-disable-next-line
   }, []);
