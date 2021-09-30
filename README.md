@@ -40,7 +40,7 @@ Run the project on develop mode
 
 ### `yarn prod`
 
-Build and run the project on production mode
+Build and run the project on production mode [http://localhost:80](http://localhost:80)
 
 ## Project structure
 
