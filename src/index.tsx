@@ -3,14 +3,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ApolloProvider } from '@apollo/client';
-import { client } from "./services/graphql/Client";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );
