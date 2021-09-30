@@ -100,10 +100,6 @@ src
            └── TodoList
 ```
 
-### Resolvers
-
-For now deprecated
-
 ### Services
 
 8base services configuration

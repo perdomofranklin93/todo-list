@@ -2,7 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 
-const TodoSkeleton = () => {
+const TodoSkeleton = (): React.ReactElement => {
   const mockArray = new Array(10).fill("");
   return (
     <Box sx={{ width: "100%" }}>

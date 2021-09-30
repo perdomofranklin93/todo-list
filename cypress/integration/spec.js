@@ -6,7 +6,7 @@ import * as faker from 'faker';
 
 describe("E2E todo list app", () => {
   it("Create a todo", function () {
-    cy.visit("http://localhost:3000/home").get('#create-input').type(faker.random.words());
+    cy.visit("http://localhost:3000").get('#create-input').type(faker.random.words());
     cy.get("#add-button").click();
   });
 
