@@ -1,6 +1,6 @@
 # Getting Started with React Todo App
 
-This project was developed with [Material UI](https://mui.com/es/).
+This project was developed with [Material UI Design System](https://mui.com/es/).
 
 ## Available Scripts
 
@@ -20,6 +20,10 @@ Builds the app for production to the `build` folder.
 
 ### `yarn eject`
 
+Note: this is a one-way operation. Once you eject, you can’t go back!
+
+If you aren’t satisfied with the build tool and configuration choices, you can eject at any time. This command will remove the single build dependency from your project.
+
 ### `yarn e2e`
 
 Launches End 2 End test with **Cypress**
@@ -28,18 +32,31 @@ Launches End 2 End test with **Cypress**
 
 Open the documentation with **Storybook**
 
+## Docker(optional)
+
+### `yarn dev`
+
+Run the project on develop mode
+
+### `yarn prod`
+
+Build and run the project on production mode
+
 ## Project structure
 
 ### Test
 
 Folder where all unit tests are located
-```
+
+```bash
 src/__tests__
 ```
 
 ### Components
+
 Generic components
-```
+
+```bash
 src/
 └── components
     ├── atoms
@@ -48,53 +65,59 @@ src/
     │   └── snackbars
     └── organisms
 ```
+
 ### Environment
 
 Project environment variables
-```
+
+```bash
 src/environment
 ```
 
 ### Hooks
-```
+
+```bash
 src/hooks
 ```
 
 ### Models
-```
+
+```bash
 src/models
 ```
+
 ### Pages
 
 - `Home` is the main page of the application.
-- `Login` for now unnecessary with the aws service.
-- `routes` lazy load modules and routes.
 
-```
+```bash
 src
 └── pages
-   ├── home
-   │   └── features
-   │       ├── Todo
-   │       ├── TodoForm
-   │       └── TodoList
-   ├── login
-   └── routers
+   └── home
+       └── features
+           ├── Todo
+           ├── TodoForm
+           └── TodoList
 ```
+
 ### Resolvers
+
 For now deprecated
+
 ### Services
 
 8base services configuration
 
-```
+```bash
 └── services
     ├── aws
     └── graphql
 ```
 
 ### Stories
+
 Component Documentation and stories
-```
-src/stories
+
+```bash
+stories
 ```

@@ -1,6 +1,0 @@
-functions:
-  completeTodo:
-    type: resolver
-    handler:
-      code: src/resolvers/completeTodo/handler.ts
-    schema: src/resolvers/completeTodo/schema.graphql

@@ -138,6 +138,6 @@ export const useTodoQueries = () => {
     createTodo,
     deleteTodo,
     updateTodo,
-    toggleTodo
+    toggleTodo,
   };
 };
