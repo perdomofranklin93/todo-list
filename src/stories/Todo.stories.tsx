@@ -1,7 +1,8 @@
 import { ApolloProvider } from "@apollo/client";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Todo } from "../src/pages/home/features";
-import { client } from "../src/services";
+import { Todo } from "../pages/home/features";
+import { client } from "../services";
+
 export default {
   title: "Example/Todo",
   component: Todo,
