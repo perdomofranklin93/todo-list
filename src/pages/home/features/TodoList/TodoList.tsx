@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { Box } from "@mui/system";
 import { useTodoQueries } from "../../../../services";
 import { Todo, TodoForm } from "..";
-import { List } from "@mui/material";
+import { Divider, List } from "@mui/material";
 import { TodoModel } from "../../../../models";
 import { TodoSkeleton } from "../Todo/TodoSkeleton";
 
@@ -59,11 +59,14 @@ const TodoList: React.FC<any> = () => {
   return (
     <>
       <TodoForm onNewTodo={_handleNewTodo} />
-      <Box sx={{ mt: 2 }}>
+      <Box sx={{ marginY: 3 }}>
+        <Divider />
+      </Box>
+      <Box>
         {todos.isLoading || todos.isFetching ? (
           <TodoSkeleton />
         ) : (
-          <List>
+          <List sx={{paddingTop: 0}}>
             {data && data.length
               ? data.map((todo: TodoModel, index: number) => (
                   <React.Fragment key={index}>

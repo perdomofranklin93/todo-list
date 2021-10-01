@@ -63,7 +63,7 @@ const Todo: React.FC<TodoProps> = (props): React.ReactElement => {
   };
 
   return (
-    <Card variant="outlined" sx={{borderRadius: 0}}>
+    <Card variant="outlined" sx={{ marginBottom: 1.2 }}>
       <Box sx={{ width: "100%" }}>
         <nav>
           <ListItem
