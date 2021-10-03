@@ -8,18 +8,18 @@ import { TodoModel } from "../../../../models";
 import "./TodoForm.scss";
 
 interface TodoFormProps {
-  onNewTodo: (todo: TodoModel) => void;
+  onAddTodo: (todo: TodoModel) => void;
 }
 
 const TodoForm: React.FC<TodoFormProps> = (props) => {
   // Todo Queries hook - GraphQL
-  const todos = useTodoQueries();
+  const { createTodo } = useTodoQueries();
 
   // Refs
   const errorMessageRef = React.useRef<any>();
   const successMessageRef = React.useRef<any>();
 
-  // React hook form
+  // react hook form
   const { reset, handleSubmit, control, formState } = useForm({
     mode: "onChange",
   });
@@ -29,20 +29,14 @@ const TodoForm: React.FC<TodoFormProps> = (props) => {
    * @param {any} data
    */
   const onSubmit = async (data: any, e: any) => {
-    // Send new task request
-    const response = await todos.createTodo({ ...data });
+    const res = await createTodo({ ...data }); // make request
 
-    if (response) {
-      // Clear
-      reset();
-      e.target.reset();
-      // Show message success
-      successMessageRef.current.open();
-      // Emit new data
-      props.onNewTodo(response);
+    if (res) {
+      successMessageRef.current.open(); // show message
+      props.onAddTodo(res); // emite add todo
+      reset({ text: "" }); // reset form
     } else {
-      // Show message error
-      errorMessageRef.current.open();
+      errorMessageRef.current.open(); // show error message
     }
   };
 
@@ -74,23 +68,29 @@ const TodoForm: React.FC<TodoFormProps> = (props) => {
             >
               <Controller
                 name="text"
+                defaultValue=""
                 control={control}
                 rules={{
                   required: true,
                   min: 5,
                   minLength: 5,
                 }}
-                render={({ field: { onChange, onBlur } }) => (
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
                   <TextField
                     id="create-input"
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    size="small"
                     name="text"
                     label="Crear una nueva tarea"
-                    fullWidth
                     variant="outlined"
-                    error={formState.errors?.text ? true : false}
+                    size="small"
+                    fullWidth
+                    value={value}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    error={!!error}
+                    helperText={error ? error.message : null}
                   />
                 )}
               />
@@ -111,7 +111,8 @@ const TodoForm: React.FC<TodoFormProps> = (props) => {
                 fullWidth
                 type={"submit"}
                 size={"medium"}
-                variant={"contained"}>
+                variant={"contained"}
+              >
                 AGREGAR
               </Button>
             </Grid>

@@ -16,31 +16,37 @@ import {
 import { useTodoQueries } from "../../../../services";
 import { Box } from "@mui/system";
 import { TodoModel } from "../../../../models";
-import * as React from "react";
 import { useCRUD } from "../../../../hooks/CRUD";
+import { FC, Fragment, ReactElement, useEffect, useState } from "react";
 interface TodoProps {
   data: TodoModel;
   onDelete?: () => void;
-  onUpdate?: (todo: Partial<TodoModel>) => void;
-  onToggle?: (todo: Partial<TodoModel>) => void;
+  onUpdate?: (todo: TodoModel) => void;
+  onToggle?: (todo: TodoModel) => void;
 }
 
-const Todo: React.FC<TodoProps> = (props): React.ReactElement => {
-  const [text, setText] = React.useState<string>(props.data.text);
+const Todo: FC<TodoProps> = (props): ReactElement => {
+  const [todo, setTodo] = useState<TodoModel>(props.data);
 
   const { deleteTodo, updateTodo, toggleTodo } = useTodoQueries();
   const { crud, modality, normalMode, editionMode, deleteMode } = useCRUD();
 
+  useEffect(() => {
+    setTodo(props.data);
+    // eslint-disable-next-line
+  }, [props.data, JSON.stringify({ ...props.data })]);
+
   const handleUpdate = async () => {
     const response = await updateTodo({
       id: props.data.id,
-      text: text,
+      text: todo.text,
       completed: null,
     });
 
     if (response) {
       normalMode();
-      if (props.onUpdate) props.onUpdate({ text: text });
+      if (props.onUpdate)
+        props.onUpdate({ ...(response as TodoModel), text: todo.text });
     }
   };
 
@@ -68,9 +74,9 @@ const Todo: React.FC<TodoProps> = (props): React.ReactElement => {
         <nav>
           <ListItem
             secondaryAction={
-              <React.Fragment>
+              <Fragment>
                 {crud !== "normal" ? (
-                  <React.Fragment>
+                  <Fragment>
                     <IconButton
                       onClick={() => {
                         switch (crud) {
@@ -94,10 +100,10 @@ const Todo: React.FC<TodoProps> = (props): React.ReactElement => {
                     >
                       <CloseIcon />
                     </IconButton>
-                  </React.Fragment>
+                  </Fragment>
                 ) : null}
                 {crud === "normal" ? (
-                  <React.Fragment>
+                  <Fragment>
                     <Tooltip title="Editar">
                       <IconButton
                         onClick={editionMode}
@@ -116,9 +122,9 @@ const Todo: React.FC<TodoProps> = (props): React.ReactElement => {
                         <DeleteIcon />
                       </IconButton>
                     </Tooltip>
-                  </React.Fragment>
+                  </Fragment>
                 ) : null}
-              </React.Fragment>
+              </Fragment>
             }
           >
             <ListItemIcon
@@ -152,9 +158,9 @@ const Todo: React.FC<TodoProps> = (props): React.ReactElement => {
                   fullWidth
                   size="small"
                   id="text"
-                  value={text}
+                  value={todo.text}
                   onChange={(e) => {
-                    setText(e.target.value);
+                    setTodo({ ...todo, text: e.target.value });
                   }}
                   label="Tarea"
                   name="text"

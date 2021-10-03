@@ -44,7 +44,8 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "dev": "docker-compose -f docker-compose.dev.yml up",
-    "prod": "docker-compose -f docker-compose.prod.yml build && docker run -p 80:80 --name react-app app-prod"
+    "prod": "docker-compose -f docker-compose.prod.yml build && docker run -p 80:80 --name react-app app-prod",
+    "analyze": "webpack-bundle-analyzer build/bundle-stats.json"
   },
   "eslintConfig": {
     "extends": [

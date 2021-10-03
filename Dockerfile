@@ -1,4 +1,4 @@
-FROM node:14-alpine AS development
+FROM node:16-alpine AS development
 
 ENV NODE_ENV development
 
@@ -19,19 +19,19 @@ EXPOSE 3000
 # Start the app
 CMD [ "yarn", "start" ]
 
-FROM node:14-alpine AS builder
+FROM node:16-alpine AS builder
 ENV NODE_ENV production
 
 # Add a work directory
 WORKDIR /app
 
+# Copy app files
+COPY . .
+
 # Cache and Install dependencies
 COPY package.json .
 COPY yarn.lock .
 RUN yarn install --production
-
-# Copy app files
-COPY . .
 
 # Build the app
 RUN yarn build
